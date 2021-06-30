@@ -20,12 +20,18 @@ requirements:
   host:
     - python
     - pip
+    - wheel
+    - setuptools
   run:
     - python
 
 test:
   imports:
     - gast
+  requires:
+    - pip
+  commands:
+    - pip check
 
 about:
   home: https://github.com/serge-sans-paille/gast
@@ -39,7 +45,7 @@ about:
     GAST provides a compatibility layer between the AST of various Python 
     versions, as produced by ast.parse from the standard ast module.
   dev_url: https://github.com/serge-sans-paille/gast
-
+  doc_url: https://github.com/serge-sans-paille/gast/blob/master/README.rst
 extra:
   recipe-maintainers:
     - CurtLH
