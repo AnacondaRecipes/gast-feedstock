@@ -30,6 +30,7 @@ test:
     - gast
   requires:
     - pip
+    - python <3.10
   commands:
     - pip check
 
