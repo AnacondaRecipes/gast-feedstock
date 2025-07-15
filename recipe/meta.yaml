@@ -23,7 +23,7 @@ requirements:
     - wheel
     - setuptools
   run:
-    - python >=3.9,4.0
+    - python >=3.9
 
 test:
   imports:
