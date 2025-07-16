@@ -1,6 +1,6 @@
 {% set name = "gast" %}
-{% set version = "0.5.3" %}
-{% set sha256 = "cfbea25820e653af9c7d1807f659ce0a0a9c64f2439421a7bba4f0983f532dea" %}
+{% set version = "0.6.0" %}
+{% set sha256 = "88fc5300d32c7ac6ca7b515310862f71e6fdf2c029bbec7c66c0f5dd47b6b1fb" %}
 
 package:
   name: {{ name|lower }}
@@ -8,29 +8,28 @@ package:
 
 source:
   fn: {{ name }}-{{ version }}.tar.gz
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
+  url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
   sha256: {{ sha256 }}
 
 build:
   noarch: python
   number: 0
-  script: {{ PYTHON }} -m pip install . --no-deps -vv
+  script: {{ PYTHON }} -m pip install . --no-deps --no-build-isolation -vv
 
 requirements:
   host:
-    - python
+    - python 3.9
     - pip
     - wheel
     - setuptools
   run:
-    - python
+    - python >=3.9
 
 test:
   imports:
     - gast
   requires:
     - pip
-    - python <3.10
   commands:
     - pip check
 
@@ -38,15 +37,14 @@ about:
   home: https://github.com/serge-sans-paille/gast
   license: BSD-3-Clause
   license_family: BSD
-  # https://github.com/serge-sans-paille/gast/pull/17
-  license_file: '{{ environ["RECIPE_DIR"] }}/LICENSE'
+  license_file: LICENSE
   summary: "A generic AST to represent Python2 and Python3's Abstract Syntax Tree(AST)."
-
   description: |
-    GAST provides a compatibility layer between the AST of various Python 
+    GAST provides a compatibility layer between the AST of various Python
     versions, as produced by ast.parse from the standard ast module.
   dev_url: https://github.com/serge-sans-paille/gast
   doc_url: https://github.com/serge-sans-paille/gast/blob/master/README.rst
+
 extra:
   recipe-maintainers:
     - CurtLH
