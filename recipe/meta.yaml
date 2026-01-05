@@ -1,21 +1,18 @@
 {% set name = "gast" %}
 {% set version = "0.7.0" %}
-{% set sha256 = "0bb14cd1b806722e91ddbab6fb86bba148c22b40e7ff11e248974e04c8adfdae" %}
 
 package:
   name: {{ name|lower }}
   version: {{ version }}
 
 source:
-  fn: {{ name }}-{{ version }}.tar.gz
   url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
-  sha256: {{ sha256 }}
+  sha256: 0bb14cd1b806722e91ddbab6fb86bba148c22b40e7ff11e248974e04c8adfdae
 
 build:
   noarch: python
   number: 0
   script: {{ PYTHON }} -m pip install . --no-deps --no-build-isolation -vv
-  skip: true  # [py==30,==31,==32,==33]
 
 requirements:
   host:
@@ -27,12 +24,17 @@ requirements:
     - python
 
 test:
+  source_files:
+    - tests
   imports:
     - gast
   requires:
+    - pytest
     - pip
   commands:
     - pip check
+    - python -c "from importlib.metadata import version; assert(version('{{ name }}')=='{{ version }}')"
+    - pytest -v tests
 
 about:
   home: https://github.com/serge-sans-paille/gast
